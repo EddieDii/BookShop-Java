@@ -34,6 +34,9 @@ public class ReadingRoom {
 
 
     public static void main(String[] args) {
-        System.out.println("Reading Room");
+        System.out.println("======================================================");
+        System.out.println("Welcome to the Reading Room!");
+        System.out.println("======================================================");
+        displayBooks();
     }
 }
