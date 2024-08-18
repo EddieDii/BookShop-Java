@@ -4,8 +4,8 @@ public class Book {
     private String author;
     private int copies;
     private boolean hasEbook;
-    private boolean isInCart;
-    private boolean isEbookInCart;
+    private boolean isInCart; // to check if the book is in the cart
+    private boolean isEbookInCart; // to check if the ebook is in the cart
 
     // Constructor
     public Book(String title, String author, int copies, boolean hasEbook) {
@@ -16,7 +16,7 @@ public class Book {
         this.isInCart = false;
         this.isEbookInCart = false;
     }
-
+    // Getters
     public String getTitle() {
         return title;
     }
@@ -57,22 +57,21 @@ public class Book {
         this.isEbookInCart = false;
     }
 
+    // reduce the number of copies of the book
     private void decreaseCopies() {
         if (copies > 0) {
             copies--;
         }
     }
 
+    // increase the number of copies of the book
     private void increaseCopies() {
         copies++;
     }
 
+    // set the template for the book information to print
     @Override
     public String toString() {
         return title + " | " + author + " | " + copies + " copies | " + (hasEbook ? "yes" : "no");
     }
-
-
-
-
 }

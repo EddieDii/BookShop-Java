@@ -1,3 +1,4 @@
+// managing the cart, adding and removing books from the cart, and check out
 public class CartManage {
     private ShoppingCart cart;
     private BookStore bookStore;
@@ -39,7 +40,12 @@ public class CartManage {
     public void removeBookFromCart() {
         cart.viewCart();
         int removeIndex = menu.getRemovalIndex();
-        cart.removeBookFromCart(removeIndex);
+        if (removeIndex >= 0 && removeIndex < cart.getBooks().length) {
+            Book bookToRemove = cart.getBooks()[removeIndex];
+            cart.removeBook(bookToRemove);
+        } else {
+            System.out.println("Invalid selection.");
+        }
     }
 
     public void checkout() {
