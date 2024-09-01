@@ -46,6 +46,11 @@ public class Menu {
         return response.equalsIgnoreCase("yes");
     }
 
+    public boolean confirmContinue() {
+        System.out.print("Do you want to continue (yes/no): ");
+        String response = scanner.nextLine();
+        return response.equalsIgnoreCase("yes");
+    }
     public int getRemovalIndex() {
         System.out.print("Which item do you want to remove: ");
         return scanner.nextInt() - 1;

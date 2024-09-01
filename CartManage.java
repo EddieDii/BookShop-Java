@@ -34,6 +34,22 @@ public class CartManage implements CartOperations {
         }
 
         Book selectedBook = foundBooks.get(selection - 1);
+        // check if the book has an ebook
+        if(!selectedBook.hasEbook()) {
+            System.out.println("This book does not have an ebook available.");
+            System.out.println("Would you like to add the physical copy instead?");
+            if(menu.confirmContinue()) {
+                if (selectedBook.getCopies()>0) {
+                    cart.addBook(selectedBook, false);
+                    System.out.println("\"" + selectedBook.getTitle() + "\" physical copy has been added to the shopping cart.");
+                } else {
+                    System.out.println("Sorry! No physical copies are available.");
+                }
+            } else {
+                System.out.println("Returning to the main menu.");
+                return;
+            }
+        }
         boolean ebookOption = selectedBook.hasEbook() && menu.askForEbook();
 
         if(!ebookOption && selectedBook.getCopies() <= 0) {
