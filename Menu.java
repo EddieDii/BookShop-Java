@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Menu {
     private Scanner scanner;
 
@@ -6,7 +7,7 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
-    public int displayMenu() {
+    public int displayMainMenu() {
         System.out.println("======================================================");
         System.out.println("Welcome to the Reading Room!");
         System.out.println("======================================================");
@@ -21,32 +22,33 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public String getKeyWord() {
+    public String getKeyword() {
         System.out.print("Enter a keyword: ");
-        scanner.nextLine();
+        scanner.nextLine();  // Consume the newline
         return scanner.nextLine();
     }
 
     public int getBookSelection(int numberOfOptions) {
         System.out.print("Please select: ");
         int selection = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine();  // Consume the newline
         if (selection < 1 || selection > numberOfOptions) {
-            System.out.println("Invalid selection. Please enter a valid number.");
+            System.out.println("Invalid selection. Please try again.");
             return -1;
         }
         return selection;
     }
 
+
     public boolean askForEbook() {
-        System.out.print("Do you want to add the ebook version? (yes/no): ");
-        String answer = scanner.nextLine();
-        return answer.equalsIgnoreCase("yes");
+        System.out.print("Do you want to buy this as an ebook (yes/no): ");
+        String response = scanner.nextLine();
+        return response.equalsIgnoreCase("yes");
     }
 
     public int getRemovalIndex() {
-        System.out.print("Enter the number of the book to remove: ");
-        return scanner.nextInt()-1;
+        System.out.print("Which item do you want to remove: ");
+        return scanner.nextInt() - 1;
     }
 
     public void displayCancelOption(int numberOfOptions) {

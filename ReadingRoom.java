@@ -1,15 +1,15 @@
 public class ReadingRoom {
     private static BookStore bookStore = new BookStore();
-    private static ShoppingCart cart = new ShoppingCart(bookStore.getBooks());
+    private static ShoppingCart cart = new ShoppingCart();
     private static Menu menu = new Menu();
     private static CartManage cartManage = new CartManage(cart, bookStore, menu);
+
     public static void main(String[] args) {
         boolean quit = false;
-        //  main menu
-        while(! quit) {
-            int option = menu.displayMenu();
 
-            switch(option) {
+        while (!quit) {
+            int option = menu.displayMainMenu();
+            switch (option) {
                 case 1:
                     cartManage.addBookToCart();
                     break;
@@ -21,6 +21,7 @@ public class ReadingRoom {
                     break;
                 case 4:
                     cartManage.checkout();
+                    break;
                 case 5:
                     bookStore.displayBooks();
                     break;
@@ -35,7 +36,3 @@ public class ReadingRoom {
         }
     }
 }
-
-
-
-
