@@ -1,7 +1,7 @@
 public class CartItem {
     private Book book;
-    private int quantity; // 数量
-    private boolean isEbook; // 是否为电子书
+    private int quantity; 
+    private boolean isEbook; 
 
     public CartItem(Book book, int quantity, boolean isEbook) {
         this.book = book;
@@ -24,7 +24,7 @@ public class CartItem {
     public void incrementQuantity() {
         if (!isEbook && book.getCopies() > 0) {
             this.quantity++;
-            book.addToCart(false); // 减少实体书库存
+            book.addToCart(false); 
         } else if (isEbook) {
             this.quantity++;
         }

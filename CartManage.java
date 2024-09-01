@@ -36,7 +36,18 @@ public class CartManage implements CartOperations {
         Book selectedBook = foundBooks.get(selection - 1);
         boolean ebookOption = selectedBook.hasEbook() && menu.askForEbook();
 
-        cart.addBook(selectedBook, ebookOption);
+        if(!ebookOption && selectedBook.getCopies() <= 0) {
+            System.out.println("No physical copies available. Would you like to add the ebook instead? ");
+            if(menu.askForEbook()) {
+                cart.addBook(selectedBook, true);
+                System.out.println("\"" + selectedBook.getTitle() + "\" e-book has been added to the shopping cart.");
+            } else {
+                System.out.println("Returning to the main menu.");
+                return; 
+            }
+        } else {
+            cart.addBook(selectedBook, ebookOption);
+        }
     }
 
     @Override
@@ -48,20 +59,20 @@ public class CartManage implements CartOperations {
         }
 
         cart.viewCart();
-        List<CartItem> cartItems = cart.getCartItems(); // 获取购物车中的项目列表
+        List<CartItem> cartItems = cart.getCartItems(); 
 
-        // 显示取消选项
+
         System.out.println((cartItems.size() + 1) + ". Cancel");
 
         int removeIndex = menu.getRemovalIndex();
 
-        // 处理用户选择的取消选项
+
         if (removeIndex == cartItems.size()) {
             System.out.println("Returning to the main menu.");
             return;
         }
 
-        // 检查用户选择的有效性
+  
         if (removeIndex >= 0 && removeIndex < cartItems.size()) {
             CartItem itemToRemove = cartItems.get(removeIndex);
             cart.removeBook(itemToRemove.getBook());

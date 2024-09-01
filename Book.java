@@ -1,7 +1,7 @@
 public class Book {
     private String title;
     private String author;
-    private int copies; // 实体书的库存数量
+    private int copies; 
     private boolean hasEbook;
     private boolean isInCart;
     private boolean isEbookInCart;

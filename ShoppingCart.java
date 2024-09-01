@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
-    private List<CartItem> cart; // 使用 CartItem 列表来管理购物车
+    private List<CartItem> cart; 
 
     public ShoppingCart() {
         cart = new ArrayList<>();
@@ -13,26 +13,25 @@ public class ShoppingCart {
     }
 
     public void addBook(Book book, boolean isEbook) {
-        // 检查库存是否充足
-        if (!isEbook && book.getCopies() <= 0) { // 如果是实体书且库存为 0
+
+        if (!isEbook && book.getCopies() <= 0) { 
             System.out.println("Sorry! There are no physical copies of \"" + book.getTitle() + "\" available.");
             return;
         }
 
         for (CartItem item : cart) {
             if (item.getBook().equals(book) && item.isEbook() == isEbook) {
-                item.incrementQuantity(); // 增加现有 CartItem 的数量，并减少库存
+                item.incrementQuantity(); 
                 System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
                 return;
             }
         }
 
-        // 如果购物车中没有该书，创建一个新的 CartItem
-        if (isEbook || book.getCopies() > 0) { // 再次确保库存检查
+        if (isEbook || book.getCopies() > 0) { 
             if (!isEbook) {
-                book.addToCart(false); // 直接调用减少库存的方法
+                book.addToCart(false); 
             }
-            cart.add(new CartItem(book, 1, isEbook)); // 添加新的书籍到购物车
+            cart.add(new CartItem(book, 1, isEbook)); 
             System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
         } else {
             System.out.println("Sorry! There are no physical copies of the book!");
@@ -44,13 +43,13 @@ public class ShoppingCart {
 
         for (CartItem item : cart) {
             if (item.getBook().equals(book)) {
-                item.decrementQuantity(); // 减少数量
+                item.decrementQuantity(); 
                 if (item.getQuantity() <= 0) {
                     itemToRemove = item;
                 }
                 System.out.println("Item removed from shopping cart.");
 
-                // 如果是实体书，恢复库存
+
                 if (!item.isEbook()) {
                     book.removeFromCart();
                 }
@@ -81,7 +80,7 @@ public class ShoppingCart {
         for (CartItem item : new ArrayList<>(cart)) {
             if (item.getQuantity() > 0) {
                 total += item.isEbook() ? 8.0 * item.getQuantity() : 50.0 * item.getQuantity();
-                cart.remove(item); // 清空购物车
+                cart.remove(item); 
             }
         }
         return total;
