@@ -34,14 +34,14 @@ public class CartManage implements CartOperations {
         }
 
         Book selectedBook = foundBooks.get(selection - 1);
-        // check if the book has an ebook
-        if(!selectedBook.hasEbook()) {
+
+        // 检查书籍是否有电子书
+        if (!selectedBook.hasEbook()) {
             System.out.println("This book does not have an ebook available.");
-            System.out.println("Would you like to add the physical copy instead?");
-            if(menu.confirmContinue()) {
-                if (selectedBook.getCopies()>0) {
+            if (menu.getConfirmation("Would you like to add the physical copy instead")) {
+                if (selectedBook.getCopies() > 0) {
                     cart.addBook(selectedBook, false);
-                    System.out.println("\"" + selectedBook.getTitle() + "\" physical copy has been added to the shopping cart.");
+                    // System.out.println("\"" + selectedBook.getTitle() + "\" physical copy has been added to the shopping cart.");
                 } else {
                     System.out.println("Sorry! No physical copies are available.");
                 }
@@ -49,46 +49,39 @@ public class CartManage implements CartOperations {
                 System.out.println("Returning to the main menu.");
                 return;
             }
-        }
-        boolean ebookOption = selectedBook.hasEbook() && menu.askForEbook();
-
-        if(!ebookOption && selectedBook.getCopies() <= 0) {
-            System.out.println("No physical copies available. Would you like to add the ebook instead? ");
-            if(menu.askForEbook()) {
-                cart.addBook(selectedBook, true);
-                System.out.println("\"" + selectedBook.getTitle() + "\" e-book has been added to the shopping cart.");
-            } else {
-                System.out.println("Returning to the main menu.");
-                return; 
-            }
         } else {
-            cart.addBook(selectedBook, ebookOption);
+            boolean ebookOption = selectedBook.hasEbook() && menu.askForEbook();
+
+            if (!ebookOption && selectedBook.getCopies() <= 0) {
+                if (menu.getConfirmation("No physical copies available. Would you like to add the ebook instead")) {
+                    cart.addBook(selectedBook, true);
+                    // System.out.println("\"" + selectedBook.getTitle() + "\" e-book has been added to the shopping cart.");
+                } else {
+                    System.out.println("Returning to the main menu.");
+                }
+            } else {
+                cart.addBook(selectedBook, ebookOption);
+            }
         }
     }
 
     @Override
     public void removeBookFromCart() {
-        // 首先检查购物车是否为空
-        if (cart.getCartItems().isEmpty()) {
-            System.out.println("Your shopping cart is empty. Returning to the main menu.");
+        if (cart.isCartEmpty()) {
             return;
         }
 
         cart.viewCart();
-        List<CartItem> cartItems = cart.getCartItems(); 
+        List<CartItem> cartItems = cart.getCartItems();
 
-
-        System.out.println((cartItems.size() + 1) + ". Cancel");
-
+        menu.displayCancelOption(cartItems.size() + 1);
         int removeIndex = menu.getRemovalIndex();
-
 
         if (removeIndex == cartItems.size()) {
             System.out.println("Returning to the main menu.");
             return;
         }
 
-  
         if (removeIndex >= 0 && removeIndex < cartItems.size()) {
             CartItem itemToRemove = cartItems.get(removeIndex);
             cart.removeBook(itemToRemove.getBook());

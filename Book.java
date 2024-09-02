@@ -35,9 +35,6 @@ public class Book {
         return isInCart;
     }
 
-    public boolean isEbookInCart() {
-        return isEbookInCart;
-    }
 
     public void addToCart(boolean isEbook) {
         this.isInCart = true;

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
-    private List<CartItem> cart; 
+    private List<CartItem> cart;
 
     public ShoppingCart() {
         cart = new ArrayList<>();
@@ -12,26 +12,33 @@ public class ShoppingCart {
         return cart;
     }
 
-    public void addBook(Book book, boolean isEbook) {
+    public boolean isCartEmpty() {
+        if (cart.isEmpty()) {
+            System.out.println("Your shopping cart is empty. Returning to the main menu.");
+            return true;
+        }
+        return false;
+    }
 
-        if (!isEbook && book.getCopies() <= 0) { 
+    public void addBook(Book book, boolean isEbook) {
+        if (!isEbook && book.getCopies() <= 0) {
             System.out.println("Sorry! There are no physical copies of \"" + book.getTitle() + "\" available.");
             return;
         }
 
         for (CartItem item : cart) {
             if (item.getBook().equals(book) && item.isEbook() == isEbook) {
-                item.incrementQuantity(); 
+                item.incrementQuantity();
                 System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
                 return;
             }
         }
 
-        if (isEbook || book.getCopies() > 0) { 
+        if (isEbook || book.getCopies() > 0) {
             if (!isEbook) {
-                book.addToCart(false); 
+                book.addToCart(false);
             }
-            cart.add(new CartItem(book, 1, isEbook)); 
+            cart.add(new CartItem(book, 1, isEbook));
             System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
         } else {
             System.out.println("Sorry! There are no physical copies of the book!");
@@ -43,12 +50,11 @@ public class ShoppingCart {
 
         for (CartItem item : cart) {
             if (item.getBook().equals(book)) {
-                item.decrementQuantity(); 
+                item.decrementQuantity();
                 if (item.getQuantity() <= 0) {
                     itemToRemove = item;
                 }
                 System.out.println("Item removed from shopping cart.");
-
 
                 if (!item.isEbook()) {
                     book.removeFromCart();
@@ -64,14 +70,12 @@ public class ShoppingCart {
 
     public void viewCart() {
         System.out.println("Your shopping cart contains the following book(s):");
-        if (cart.isEmpty()) {
-            System.out.println("Your shopping cart is empty.");
-        } else {
-            int count = 1;
-            for (CartItem item : cart) {
-                System.out.println(count + ". " + item);
-                count++;
-            }
+        if (isCartEmpty()) return;
+
+        int count = 1;
+        for (CartItem item : cart) {
+            System.out.println(count + ". " + item);
+            count++;
         }
     }
 
@@ -80,7 +84,7 @@ public class ShoppingCart {
         for (CartItem item : new ArrayList<>(cart)) {
             if (item.getQuantity() > 0) {
                 total += item.isEbook() ? 8.0 * item.getQuantity() : 50.0 * item.getQuantity();
-                cart.remove(item); 
+                cart.remove(item);
             }
         }
         return total;

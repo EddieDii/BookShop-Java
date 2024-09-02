@@ -24,14 +24,14 @@ public class Menu {
 
     public String getKeyword() {
         System.out.print("Enter a keyword: ");
-        scanner.nextLine();  // Consume the newline
+        scanner.nextLine();
         return scanner.nextLine();
     }
 
     public int getBookSelection(int numberOfOptions) {
         System.out.print("Please select: ");
         int selection = scanner.nextInt();
-        scanner.nextLine();  // Consume the newline
+        scanner.nextLine();
         if (selection < 1 || selection > numberOfOptions) {
             System.out.println("Invalid selection. Please try again.");
             return -1;
@@ -39,18 +39,16 @@ public class Menu {
         return selection;
     }
 
-
     public boolean askForEbook() {
-        System.out.print("Do you want to buy this as an ebook (yes/no): ");
+        return getConfirmation("Do you want to buy this as an ebook");
+    }
+
+    public boolean getConfirmation(String message) {
+        System.out.print(message + " (yes/no): ");
         String response = scanner.nextLine();
         return response.equalsIgnoreCase("yes");
     }
 
-    public boolean confirmContinue() {
-        System.out.print("Do you want to continue (yes/no): ");
-        String response = scanner.nextLine();
-        return response.equalsIgnoreCase("yes");
-    }
     public int getRemovalIndex() {
         System.out.print("Which item do you want to remove: ");
         return scanner.nextInt() - 1;
