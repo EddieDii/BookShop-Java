@@ -1,3 +1,7 @@
+// manage the book in the cart
+// offer the operations to add book to the cart
+// remove book from the cart, print the cart and checkout
+// the methods in this class are Mid-level methods, manage the internal state of the cart
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +24,17 @@ public class ShoppingCart {
         return false;
     }
 
+    // actual addtion of a book to the cart
+    // manage the internal state of the cart
     public void addBook(Book book, boolean isEbook) {
+        // if the book is not an ebook and there are no physical copies available
         if (!isEbook && book.getCopies() <= 0) {
             System.out.println("Sorry! There are no physical copies of \"" + book.getTitle() + "\" available.");
             return;
         }
 
         for (CartItem item : cart) {
+            // if the book is already in the cart, increment the quantity
             if (item.getBook().equals(book) && item.isEbook() == isEbook) {
                 item.incrementQuantity();
                 System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
@@ -34,10 +42,13 @@ public class ShoppingCart {
             }
         }
 
+        // if the book is either an ebook or there are physical copies available
         if (isEbook || book.getCopies() > 0) {
+            // if the book is not an ebook, add the physical copy to the cart
             if (!isEbook) {
                 book.addToCart(false);
             }
+            // if the book is an ebook, add the ebook to the cart
             cart.add(new CartItem(book, 1, isEbook));
             System.out.println("\"" + book.getTitle() + "\" has been added to the shopping cart.");
         } else {

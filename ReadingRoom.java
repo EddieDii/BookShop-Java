@@ -1,3 +1,5 @@
+// The main entry point forr the Reading Room program.
+// including the main method to manage the flow of the program
 public class ReadingRoom {
     private static BookStore bookStore = new BookStore();
     private static ShoppingCart cart = new ShoppingCart();

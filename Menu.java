@@ -1,3 +1,5 @@
+// Offering a menu to the user to interact with the program
+// showing the main menu and asking for input
 import java.util.Scanner;
 
 public class Menu {

@@ -1,3 +1,6 @@
+// Store information about a book in the cart, 
+//including the quantity and whether it is an e-book or physical copy.
+// method: increase the quantity of the book in the cart and decrease the quantity from the stock and vice versa
 public class CartItem {
     private Book book;
     private int quantity; 
@@ -22,6 +25,10 @@ public class CartItem {
     }
 
     public void incrementQuantity() {
+        // if the book is not an ebook and there are copies available
+        // then increase the quantity of the book in the cart
+        // and call the method addToCart to decrease the number of copies from the stock
+        // otherwise, increase the quantity of the book in the cart only
         if (!isEbook && book.getCopies() > 0) {
             this.quantity++;
             book.addToCart(false); 
@@ -31,6 +38,8 @@ public class CartItem {
     }
 
     public void decrementQuantity() {
+        // no matter the book is an ebook or not
+        // decrease the quantity of the book in the cart
         this.quantity--;
     }
 
