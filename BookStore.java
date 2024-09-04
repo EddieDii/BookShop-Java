@@ -4,7 +4,7 @@
 import java.util.List;
 import java.util.ArrayList;
 public class BookStore {
-    // create am array of Book objects
+    // create an array of Book objects
     private Book[] books; 
     public BookStore() {
         books = new Book[]{
